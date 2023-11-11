@@ -64,10 +64,11 @@ export default {
   margin: 20px auto;
   width: 60%;
   height: 95%;
-  background-color: #eee;
+  background-color: #eeeeee00;
+  backdrop-filter: blur(15px);
   display: block;
   border-radius: 15px;
-  padding: 20px;
+  padding: 5px;
 }
 .field {
   margin: 10px auto;

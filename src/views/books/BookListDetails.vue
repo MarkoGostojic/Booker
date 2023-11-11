@@ -1,74 +1,87 @@
 <template>
   <div v-if="error" class="error">{{ error }}</div>
-  <div class="list" v-if="document">
-    <div class="info">
-      <div>
-        <h2>{{ document.listTitle }}</h2>
+  <div v-if="showList">
+    <div class="list" v-if="document">
+      <div class="info">
+        <div>
+          <h2 class="list-title">{{ document.listTitle }}</h2>
+        </div>
+      </div>
+      <div class="books">
+        <div class="book">
+          <div class="book-info">
+            <img :src="document.books[0].coverUrl" />
+            <div class="t-a">
+              <h4>{{ document.books[0].bookAuthor }}</h4>
+              <h3>{{ document.books[0].bookTitle }}</h3>
+            </div>
+          </div>
+          <p>{{ document.books[0].aboutBook }}</p>
+        </div>
+
+        <div class="book">
+          <div class="book-info">
+            <img :src="document.books[1].coverUrl" />
+            <div class="t-a">
+              <h4>{{ document.books[1].bookAuthor }}</h4>
+              <h3>{{ document.books[1].bookTitle }}</h3>
+            </div>
+          </div>
+          <p>{{ document.books[1].aboutBook }}</p>
+        </div>
+        <div class="book">
+          <div class="book-info">
+            <img :src="document.books[2].coverUrl" />
+            <div class="t-a">
+              <h4>{{ document.books[2].bookAuthor }}</h4>
+              <h3>{{ document.books[2].bookTitle }}</h3>
+            </div>
+          </div>
+          <p>{{ document.books[2].aboutBook }}</p>
+        </div>
+        <div class="book">
+          <div class="book-info">
+            <img :src="document.books[3].coverUrl" />
+            <div class="t-a">
+              <h4>{{ document.books[3].bookAuthor }}</h4>
+              <h3>{{ document.books[3].bookTitle }}</h3>
+            </div>
+          </div>
+          <p>{{ document.books[3].aboutBook }}</p>
+        </div>
+        <div class="book">
+          <div class="book-info">
+            <img :src="document.books[4].coverUrl" />
+            <div class="t-a">
+              <h4>{{ document.books[4].bookAuthor }}</h4>
+              <h3>{{ document.books[4].bookTitle }}</h3>
+            </div>
+          </div>
+          <p>{{ document.books[4].aboutBook }}</p>
+        </div>
+      </div>
+      <div class="details">
+        <p>{{ document.aboutList }}</p>
       </div>
     </div>
-    <div class="books">
-      <div class="book">
-        <div class="book-info">
-          <img :src="document.books[0].coverUrl" />
 
-          <h4>{{ document.books[0].bookAuthor }}</h4>
-          <h3>{{ document.books[0].bookTitle }}</h3>
-        </div>
-        <p>{{ document.books[0].aboutBook }}</p>
-      </div>
-
-      <div class="book">
-        <div class="book-info">
-          <img :src="document.books[1].coverUrl" />
-
-          <h4>{{ document.books[1].bookAuthor }}</h4>
-          <h3>{{ document.books[1].bookTitle }}</h3>
-        </div>
-        <p>{{ document.books[1].aboutBook }}</p>
-      </div>
-      <div class="book">
-        <div class="book-info">
-          <img :src="document.books[2].coverUrl" />
-
-          <h4>{{ document.books[2].bookAuthor }}</h4>
-          <h3>{{ document.books[2].bookTitle }}</h3>
-        </div>
-        <p>{{ document.books[2].aboutBook }}</p>
-      </div>
-      <div class="book">
-        <div class="book-info">
-          <img :src="document.books[3].coverUrl" />
-
-          <h4>{{ document.books[3].bookAuthor }}</h4>
-          <h3>{{ document.books[3].bookTitle }}</h3>
-        </div>
-        <p>{{ document.books[3].aboutBook }}</p>
-      </div>
-      <div class="book">
-        <div class="book-info">
-          <img :src="document.books[4].coverUrl" />
-
-          <h4>{{ document.books[4].bookAuthor }}</h4>
-          <h3>{{ document.books[4].bookTitle }}</h3>
-        </div>
-        <p>{{ document.books[4].aboutBook }}</p>
-      </div>
-    </div>
-    <div class="details">
-      <p>{{ document.aboutList }}</p>
+    <div class="doru" v-if="ownership">
+      <button @click="handleDelete">delete</button>
+      <span> or </span>
+      <button @click="showList = false">update</button>
     </div>
   </div>
-  <div v-if="ownership">
-    <button @click="handleDelete">delete</button>
-    <span> or </span>
-    <button @click="show = !show">update</button>
-  </div>
-  <div v-if="show" class="edit-form">
+  <div class="container" v-if="!showList">
     <form @submit.prevent="handleEdit">
-      <input type="text" placeholder="list title" v-model="listTitleEdit" />
-      <textarea placeholder="about list" v-model="aboutListEdit"></textarea>
-      <button>save changes</button>
+      <div>
+        <input type="text" placeholder="list title" v-model="listTitleEdit" />
+      </div>
+      <div>
+        <textarea placeholder="about list" v-model="aboutListEdit"></textarea>
+      </div>
+      <div><button>save changes</button></div>
     </form>
+    <button @click="showList = true">back</button>
   </div>
 </template>
 
@@ -83,6 +96,7 @@ import useStorage from "@/composables/useStorage";
 export default {
   props: ["id"],
   setup(props) {
+    const showList = ref(true);
     const aboutListEdit = ref("");
     const listTitleEdit = ref("");
     const show = ref(false);
@@ -99,7 +113,6 @@ export default {
 
     const handleDelete = async () => {
       loading.value = true;
-      // await deleteImage(document.value.filePath);
       if (document.value && document.value.books) {
         for (const book of document.value.books) {
           await deleteImage(book.filePath);
@@ -115,7 +128,6 @@ export default {
         aboutList: aboutListEdit.value,
         listTitle: listTitleEdit.value,
       });
-      show.value = false;
     };
 
     return {
@@ -132,6 +144,7 @@ export default {
       aboutListEdit,
       listTitleEdit,
       show,
+      showList,
     };
   },
 };
@@ -141,8 +154,8 @@ export default {
 .list {
   background-color: #eee;
   padding: 10px;
-  width: 98%;
-  margin: 10px auto;
+  width: 100%;
+  margin: 0 auto;
   margin-right: 10px;
 }
 .recommend {
@@ -153,19 +166,89 @@ export default {
 .books {
   border-top: solid darkgoldenrod;
   border-bottom: solid darkgoldenrod;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1em;
+  padding: 2%;
 }
 .book {
   display: block;
-  border-right: solid darkgoldenrod;
+  /* border-right: solid darkgoldenrod; */
+}
+.t-a {
+  display: inline;
+}
+.doru {
+  margin: 10px;
+  text-align: center;
 }
 .book-info {
   display: flex;
   align-items: center;
 }
+img {
+  width: 80px;
+  height: 100px;
+}
 .details {
   text-align: center;
   display: block;
   margin: 10px;
+}
+.list-title {
+  text-align: center;
+}
+/* .edit-container {
+  display: block;
+  background: #eee;
+  text-align: center;
+}
+.form {
+  margin: 10px left;
+  width: 500px;
+  height: 200px;
+  display: block;
+  padding: 10px;
+  text-align: center;
+} */
+.container {
+  margin: 20px auto;
+  width: 500px;
+  height: 200px;
+  display: block;
+  padding: 20px;
+  text-align: center;
+}
+form {
+  margin: 20px left;
+  width: 500px;
+  height: 200px;
+  display: block;
+  padding: 20px;
+  background: #eee;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.field {
+  margin: 3px auto;
+  display: block;
+  text-align: center;
+}
+input {
+  width: 65%;
+  border: none;
+  padding: 3px;
+  border-radius: 5px;
+  margin: 3px auto;
+  text-align: center;
+}
+textarea {
+  width: 65%;
+  border: none;
+  padding: 3px;
+  border-radius: 5px;
+  margin: 3px auto;
+  text-align: center;
+  height: 100px;
 }
 </style>

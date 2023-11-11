@@ -78,12 +78,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .list {
   background-color: #eee;
   padding: 10px;
-  width: 95%;
+  width: 70%;
   margin: 10px auto;
+  border-radius: 20px;
 }
 .info {
   display: flex;
@@ -100,16 +101,25 @@ export default {
   padding-right: 15px;
 } */
 .books {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  /* align-items: center;
+  justify-content: space-between; */
 }
 .book {
-  display: flex;
-  min-width: 240px;
-  min-width: 250px;
+  display: block;
+  /* min-width: 240px;
+  min-width: 250px; */
+}
+img {
+  width: 80px;
+  height: 100px;
 }
 .title {
   display: block;
+}
+p {
+  color: var(--secondary);
+  font-weight: 500;
 }
 </style>

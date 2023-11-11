@@ -6,8 +6,8 @@
 
 :root {
   --primary: #4f515a;
-  --secondary: rgb(163, 87, 138);
-  --warning: #d0b6bc;
+  --secondary: rgba(163, 87, 138, 0.859);
+  --warning: #d93510;
 }
 * {
   margin: 0;
@@ -16,7 +16,12 @@
   color: var(--primary);
 }
 body {
-  background: #fafafa;
+  /* background: #fafafa; */
+  background-image: url("wood.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  /* margin: 0 auto; */
 }
 a {
   text-decoration: none;
@@ -24,7 +29,7 @@ a {
 /* buttons */
 button,
 .btn {
-  background: var(--secondary);
+  /* background: var(--secondary); */
   border-radius: 8px;
   border: 0;
   padding: 8px 12px;

@@ -1,29 +1,25 @@
 <template>
   <nav>
-    <div class="nav">
-      <div class="logo">
-        <img src="../assets/book.jpg" alt="logo book" />
-        <h2>
-          <router-link class="btn" :to="{ name: 'Home' }"
-            >TheBookers</router-link
-          >
-        </h2>
-      </div>
-      <div class="links">
-        <p v-if="user">hello</p>
-        <h4 v-if="user"><span>, </span>{{ user.displayName }}</h4>
-        <router-link class="btn" :to="{ name: 'CreateBookList' }"
-          >Create Book List</router-link
-        >
-        <router-link v-if="!user" class="btn" :to="{ name: 'Login' }"
-          >Log in <span>or</span></router-link
-        >
+    <div class="logo">
+      <img src="../assets/book.jpg" alt="logo book" />
+      <h2>
+        <router-link class="btn" :to="{ name: 'Home' }">TheBookers</router-link>
+      </h2>
+    </div>
+    <div class="links">
+      <p v-if="user">hello</p>
+      <h4 v-if="user"><span>, </span>{{ user.displayName }}</h4>
+      <router-link class="btn" :to="{ name: 'CreateBookList' }"
+        >Create Book List</router-link
+      >
+      <router-link v-if="!user" class="btn" :to="{ name: 'Login' }"
+        >Log in <span>or</span></router-link
+      >
 
-        <router-link v-if="!user" class="btn" :to="{ name: 'Signup' }"
-          ><Signup />Signup</router-link
-        >
-        <button v-if="user" @click="handleLogout">Logout</button>
-      </div>
+      <router-link v-if="!user" class="btn" :to="{ name: 'Signup' }"
+        ><Signup />Signup</router-link
+      >
+      <button v-if="user" @click="handleLogout">Logout</button>
     </div>
   </nav>
 </template>
@@ -48,7 +44,7 @@ export default {
 </script>
 
 <style>
-.nav {
+nav {
   display: flex;
   width: 100%;
   height: 90px;
