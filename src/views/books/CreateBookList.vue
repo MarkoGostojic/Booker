@@ -306,7 +306,7 @@ textarea {
 .render {
   display: block;
   /* background-color: #eeeeee2d; */
-  border: solid #eeeeee2d;
+  border: none;
   padding: 10px;
   width: 70%;
   margin: 10px auto;
@@ -323,6 +323,7 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 1em;
+  text-align: center;
 }
 .book-form {
   display: block;

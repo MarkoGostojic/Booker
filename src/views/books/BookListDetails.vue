@@ -152,7 +152,7 @@ export default {
 
 <style scoped>
 .list {
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.593);
   padding: 10px;
   width: 100%;
   margin: 0 auto;
@@ -189,6 +189,7 @@ export default {
 img {
   width: 80px;
   height: 100px;
+  border-radius: 5px;
 }
 .details {
   text-align: center;
@@ -225,7 +226,7 @@ form {
   height: 200px;
   display: block;
   padding: 20px;
-  background: #eee;
+  background: #eeeeeece;
   border-radius: 20px;
   margin-bottom: 20px;
 }
