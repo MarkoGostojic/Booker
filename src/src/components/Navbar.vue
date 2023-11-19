@@ -6,20 +6,20 @@
         <router-link class="btn" :to="{ name: 'Home' }">TheBookers</router-link>
       </h2>
     </div>
-    <div v-if="user" class="links">
-      <p>hello</p>
-      <h4><span>, </span>{{ user.displayName }}</h4>
+    <div class="links">
+      <p v-if="user">hello</p>
+      <h4 v-if="user"><span>, </span>{{ user.displayName }}</h4>
       <router-link class="btn" :to="{ name: 'CreateBookList' }"
         >Create Book List</router-link
       >
-      <button @click="handleLogout">Logout</button>
-    </div>
-    <div v-if="!user">
-      <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
-      <span> or </span>
-      <router-link class="btn" :to="{ name: 'Signup' }"
+      <router-link v-if="!user" class="btn" :to="{ name: 'Login' }"
+        >Log in <span>or</span></router-link
+      >
+
+      <router-link v-if="!user" class="btn" :to="{ name: 'Signup' }"
         ><Signup />Signup</router-link
       >
+      <button v-if="user" @click="handleLogout">Logout</button>
     </div>
   </nav>
 </template>
@@ -28,7 +28,6 @@
 import getUser from "@/composables/getUser";
 import useLogout from "@/composables/useLogout";
 import { useRouter } from "vue-router";
-
 export default {
   setup() {
     const { user } = getUser();
