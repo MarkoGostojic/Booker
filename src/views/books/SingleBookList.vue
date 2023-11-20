@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .list {
   background-color: #eeeeeeb0;
   padding: 5px;
@@ -88,9 +88,7 @@ export default {
   margin: 10px auto;
   border-radius: 20px;
 }
-.container {
-  /* padding: 10px; */
-}
+
 .container :hover {
   background-color: #eeeeee;
 }
@@ -104,32 +102,30 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  p {
+    margin: 5px;
+    color: var(--secondary);
+    font-weight: 250;
+  }
 }
-/* .title {
-  padding-right: 15px;
-} */
+
 .books {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
-  /* align-items: center;
-  justify-content: space-between; */
 }
 .book {
   display: block;
   /* min-width: 240px;
   min-width: 250px; */
+  img {
+    width: 40px;
+    height: 50px;
+    border-radius: 5px;
+  }
 }
-img {
-  width: 40px;
-  height: 50px;
-  border-radius: 5px;
-}
+
 .title {
   display: block;
-}
-p {
-  color: var(--secondary);
-  font-weight: 250;
 }
 </style>

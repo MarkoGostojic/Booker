@@ -1,64 +1,3 @@
-<!-- <template>
-  <div class="container">
-    <h1>Create Book List</h1>
-    <form v-if="show" class="book-form" @submit.prevent="addBook">
-      <button v-if="loading" disabled>Loading</button>
-      <div v-else class="text field">
-        <div class="field">
-          <input
-            type="text"
-            required
-            placeholder="book title"
-            v-model="bookTitle"
-          />
-        </div>
-        <div class="field">
-          <input
-            type="text"
-            required
-            placeholder="author"
-            v-model="bookAuthor"
-          />
-        </div>
-        <div class="field">
-          <input type="file" @change="handleChange" />
-        </div>
-        <div class="field">
-          <textarea
-            typeof="text"
-            required
-            placeholder="wrote something about book"
-            v-model="aboutBook"
-          ></textarea>
-        </div>
-        <div class="error">{{ fileError }}</div>
-        <div class="text">{{ text }}<button>add book</button></div>
-      </div>
-    </form>
-    <div v-if="!show">
-      <form @submit.prevent="handleSubmit">
-        <div class="field">
-          <input
-            type="text"
-            required
-            placeholder="Title of the list"
-            v-model="listTitle"
-          />
-        </div>
-        <div class="field">
-          <textarea
-            type="text"
-            required
-            placeholder="few words about your list"
-            v-model="aboutList"
-          ></textarea>
-          <button v-if="loading">Loading...</button>
-          <button class="field" v-if="!show && !loading">Create list</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</template> -->
 <template>
   <h1 class="text">Create Book List</h1>
   <div class="all">
@@ -259,7 +198,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
   text-align: center;
 }

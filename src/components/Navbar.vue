@@ -44,7 +44,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 nav {
   display: flex;
   width: 100%;
@@ -68,5 +68,8 @@ nav {
 .links {
   display: flex;
   align-items: center;
+  button {
+    background: none;
+  }
 }
 </style>
