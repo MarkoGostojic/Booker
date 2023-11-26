@@ -12,55 +12,13 @@
           </div>
         </div>
         <div class="books">
-          <div>
-            <div class="book">
-              <img :src="doc.books[0].coverUrl" />
-              <div class="title">
-                <h4>{{ doc.books[0].bookAuthor }}</h4>
-                <h3>{{ doc.books[0].bookTitle }}</h3>
-              </div>
+          <div v-for="(book, index) in doc.books" :key="index" class="book">
+            <img :src="book.coverUrl" />
+            <p>{{ index + 1 }}</p>
+            <div>
+              <h4 class="title">{{ book.bookTitle }}</h4>
+              <h4 class="author">by {{ book.bookAuthor }}</h4>
             </div>
-            <p>1</p>
-          </div>
-          <div>
-            <div class="book">
-              <img :src="doc.books[1].coverUrl" />
-              <div class="title">
-                <h4>{{ doc.books[1].bookAuthor }}</h4>
-                <h3>{{ doc.books[1].bookTitle }}</h3>
-              </div>
-            </div>
-            <p>2</p>
-          </div>
-          <div>
-            <div class="book">
-              <img :src="doc.books[2].coverUrl" />
-              <div class="title">
-                <h4>{{ doc.books[2].bookAuthor }}</h4>
-                <h3>{{ doc.books[2].bookTitle }}</h3>
-              </div>
-            </div>
-            <p>3</p>
-          </div>
-          <div>
-            <div class="book">
-              <img :src="doc.books[3].coverUrl" />
-              <div class="title">
-                <h4>{{ doc.books[3].bookAuthor }}</h4>
-                <h3>{{ doc.books[3].bookTitle }}</h3>
-              </div>
-            </div>
-            <p>4</p>
-          </div>
-          <div>
-            <div class="book">
-              <img :src="doc.books[4].coverUrl" />
-              <div class="title">
-                <h4>{{ doc.books[4].bookAuthor }}</h4>
-                <h3>{{ doc.books[4].bookTitle }}</h3>
-              </div>
-            </div>
-            <p>5</p>
           </div>
         </div>
       </router-link>
@@ -70,6 +28,7 @@
 
 <script>
 import getUser from "@/composables/getUser";
+
 export default {
   props: ["bookers"],
   setup() {
@@ -79,7 +38,6 @@ export default {
   },
 };
 </script>
-
 <style scoped lang="scss">
 .list {
   background-color: #eeeeeeb0;
@@ -108,24 +66,38 @@ export default {
     font-weight: 250;
   }
 }
-
 .books {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
 }
-.book {
-  display: block;
-  /* min-width: 240px;
-  min-width: 250px; */
-  img {
-    width: 40px;
-    height: 50px;
-    border-radius: 5px;
+@media only screen and (max-width: 700px) {
+  .books {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    padding: 2%;
   }
 }
-
-.title {
+.book {
   display: block;
+  img {
+    width: 80px;
+    height: 100px;
+    border-radius: 5px;
+  }
+  p {
+    margin: 5px;
+    color: var(--secondary);
+    font-weight: 500;
+    font-size: xx-large;
+    // text-align: left;
+  }
+  .title {
+    font-weight: 900;
+  }
+  .author {
+    font-weight: 400;
+  }
 }
 </style>

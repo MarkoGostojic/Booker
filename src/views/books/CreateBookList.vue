@@ -25,7 +25,7 @@
         </form>
       </div>
       <div class="error">{{ fileError }}</div>
-      <div class="text">{{ text }}</div>
+
       <div class="book-form">
         <form v-if="show" @submit.prevent="addBook">
           <button v-if="loading" disabled>Loading</button>
@@ -42,7 +42,7 @@
               <input
                 type="text"
                 required
-                placeholder="author"
+                placeholder="book author"
                 v-model="bookAuthor"
               />
             </div>
@@ -57,21 +57,31 @@
                 v-model="aboutBook"
               ></textarea>
             </div>
+            <div class="field">
+              <input
+                typeof="text"
+                required
+                placeholder="put link of the book"
+                v-model="bookLink"
+              />
+            </div>
             <button>add book</button>
           </div>
         </form>
       </div>
     </div>
     <div class="render">
+      <div v-if="show" class="info-text">{{ text }}</div>
       <div class="list">
         <h2>{{ listTitle }}</h2>
         <p>{{ aboutList }}</p>
       </div>
+
       <div class="book">
         <div v-for="book in books" :key="book.id">
           <h4>{{ book.bookTitle }}</h4>
           <h3>{{ book.bookAuthor }}</h3>
-          <p>{{ book.aboutBook }}</p>
+          <!-- <p>{{ book.aboutBook }}</p> -->
           <img :src="book.coverUrl" />
         </div>
       </div>
@@ -94,6 +104,7 @@ export default {
     const bookTitle = ref("");
     const bookAuthor = ref("");
     const aboutBook = ref("");
+    const bookLink = ref("");
     const bookId = ref(null);
     const show = ref(true);
     const text = ref("Please add your top 5 books");
@@ -118,6 +129,7 @@ export default {
           bookAuthor: bookAuthor.value,
           bookTitle: bookTitle.value,
           aboutBook: aboutBook.value,
+          bookLink: bookLink.value,
           coverUrl: url.value,
           filePath: filePath.value,
           bookId: Math.floor(Math.random() * 100000),
@@ -126,6 +138,7 @@ export default {
       bookAuthor.value = "";
       bookTitle.value = "";
       aboutBook.value = "";
+      bookLink.value = "";
       file.value = null;
       //showing buttons and forms condition
       if (books.value.length === 0) {
@@ -140,7 +153,7 @@ export default {
         text.value = "Book 4 is added";
       } else {
         show.value = false;
-        text.value = "You added all five books";
+        text.value = "You added all five books.";
       }
       loading.value = false;
     };
@@ -180,6 +193,7 @@ export default {
       bookAuthor,
       aboutList,
       aboutBook,
+      bookLink,
       bookId,
       show,
       text,
@@ -237,10 +251,13 @@ textarea {
   text-align: center;
   height: 100px;
 }
-
 .text {
   color: #eee;
+}
+.info-text {
+  color: #eee;
   display: block;
+  font-size: xx-large;
 }
 .render {
   display: block;

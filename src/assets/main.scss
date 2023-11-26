@@ -5,9 +5,12 @@
   --secondary: rgba(163, 87, 138, 0.859);
   --warning: #d93510;
 }
-* {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
+  box-sizing: inherit;
   font-family: "EB Garamond", serif;
   color: var(--primary);
 }
@@ -29,23 +32,20 @@ button,
   font-weight: 600;
   cursor: pointer;
   display: inline-block;
-}
-button:hover,
-.btn:hover {
-  color: white;
-}
-button:disabled {
-  opacity: 0.5;
-  color: var(--primary);
-  background: var(--secondary);
-  cursor: not-allowed;
+  &:hover,
+  &:hover {
+    color: white;
+    transform: translateY(-3px);
+    // box-shadow: 0 1rem 2rem;
+  }
+  &:disabled {
+    opacity: 0.5;
+    color: var(--primary);
+    background: var(--secondary);
+    cursor: not-allowed;
+  }
 }
 
-.error {
-  color: var(--warning);
-  font-size: 14px;
-  margin: 16px 0;
-}
 // Import Bootstrap variables (optional, for customization)
 // @import "~bootstrap/scss/_variables";
 

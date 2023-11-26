@@ -71,5 +71,10 @@ nav {
   button {
     background: none;
   }
+  @media only screen and (max-width: 700px) {
+    .links {
+      display: block;
+    }
+  }
 }
 </style>
