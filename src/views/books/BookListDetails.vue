@@ -12,76 +12,31 @@
       </div>
       <div class="books">
         <div class="book">
-          <div class="book-info">
-            <a :href="document.books[0].bookLink">
-              <img :src="document.books[0].coverUrl" />
+          <div v-for="book in document.books" :key="book.id">
+            <div class="book-info">
+              <img :src="book.coverUrl" />
+              <!-- <button @click="handleWish(book)">wish</button> -->
+              <a :href="book.bookLink"> <button>buy</button></a>
               <div class="t-a">
-                <h4>{{ document.books[0].bookAuthor }}</h4>
-                <h3>{{ document.books[0].bookTitle }}</h3>
+                <h4>{{ book.bookAuthor }}</h4>
+                <h3>{{ book.bookTitle }}</h3>
               </div>
-            </a>
+            </div>
+            <div>
+              <p>{{ book.aboutBook }}</p>
+            </div>
           </div>
-          <p>{{ document.books[0].aboutBook }}</p>
-        </div>
-
-        <div class="book">
-          <div class="book-info">
-            <a :href="document.books[1].bookLink">
-              <img :src="document.books[1].coverUrl" />
-              <div class="t-a">
-                <h4>{{ document.books[1].bookAuthor }}</h4>
-                <h3>{{ document.books[1].bookTitle }}</h3>
-              </div>
-            </a>
-          </div>
-          <p>{{ document.books[1].aboutBook }}</p>
-        </div>
-        <div class="book">
-          <div class="book-info">
-            <a :href="document.books[2].bookLink">
-              <img :src="document.books[2].coverUrl" />
-              <div class="t-a">
-                <h4>{{ document.books[2].bookAuthor }}</h4>
-                <h3>{{ document.books[2].bookTitle }}</h3>
-              </div>
-            </a>
-          </div>
-          <p>{{ document.books[2].aboutBook }}</p>
-        </div>
-        <div class="book">
-          <div class="book-info">
-            <a :href="document.books[3].bookLink">
-              <img :src="document.books[3].coverUrl" />
-              <div class="t-a">
-                <h4>{{ document.books[3].bookAuthor }}</h4>
-                <h3>{{ document.books[3].bookTitle }}</h3>
-              </div>
-            </a>
-          </div>
-          <p>{{ document.books[3].aboutBook }}</p>
-        </div>
-        <div class="book">
-          <div class="book-info">
-            <a :href="document.books[4].bookLink">
-              <img :src="document.books[4].coverUrl" />
-              <div class="t-a">
-                <h4>{{ document.books[4].bookAuthor }}</h4>
-                <h3>{{ document.books[4].bookTitle }}</h3>
-              </div>
-            </a>
-          </div>
-          <p>{{ document.books[4].aboutBook }}</p>
         </div>
       </div>
     </div>
 
     <div class="doru" v-if="ownership">
       <button @click="handleDelete">delete</button>
-      <span> or </span>
-      <button @click="showList = false">update</button>
+      <!-- <span> or </span>
+      <button @click="showList = false">update</button> -->
     </div>
   </div>
-  <div class="container" v-if="!showList">
+  <!-- <div class="container" v-if="!showList">
     <form @submit.prevent="handleEdit">
       <div>
         <input type="text" placeholder="list title" v-model="listTitleEdit" />
@@ -92,17 +47,17 @@
       <div><button>save changes</button></div>
     </form>
     <button @click="showList = true">back</button>
-  </div>
+  </div> -->
 </template>
 
 <script>
 import getUser from "@/composables/getUser";
-
 import getDocument from "@/composables/getDocument";
 import useDocument from "@/composables/useDocument";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import useStorage from "@/composables/useStorage";
+
 export default {
   props: ["id"],
   setup(props) {
@@ -110,6 +65,7 @@ export default {
     const aboutListEdit = ref("");
     const listTitleEdit = ref("");
     const show = ref(false);
+    // const wish = ref([]);
     const { user } = getUser();
     const router = useRouter();
     const { error, document } = getDocument("bookers", props.id);
@@ -120,7 +76,17 @@ export default {
         document.value && user.value && user.value.uid == document.value.userId
       );
     });
-
+    // const handleWish = (selectedBook) => {
+    //   const bookInfo = {
+    //     author: selectedBook.bookAuthor,
+    //     title: selectedBook.bookTitle,
+    //     id: selectedBook.bookId,
+    //   };
+    //   if (!wish.value.some((book) => book.id === bookInfo.id)) {
+    //     wish.value.push(bookInfo);
+    //     console.log(wish.value);
+    //   } else console.log("Book is already in the wish list");
+    // };
     const handleDelete = async () => {
       loading.value = true;
       if (document.value && document.value.books) {
@@ -133,12 +99,12 @@ export default {
       router.push({ name: "Home" });
       loading.value = true;
     };
-    const handleEdit = async () => {
-      await updateDoc({
-        aboutList: aboutListEdit.value,
-        listTitle: listTitleEdit.value,
-      });
-    };
+    // const handleEdit = async () => {
+    //   await updateDoc({
+    //     aboutList: aboutListEdit.value,
+    //     listTitle: listTitleEdit.value,
+    //   });
+    // };
 
     return {
       user,
@@ -147,14 +113,16 @@ export default {
       loading,
       ownership,
       handleDelete,
-      handleEdit,
+      // handleEdit,
       deleteDoc,
       updateDoc,
+      // handleWish,
       deleteImage,
       aboutListEdit,
       listTitleEdit,
       show,
       showList,
+      // wish,
     };
   },
 };
@@ -182,7 +150,17 @@ export default {
   padding: 2%;
 }
 .book {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  text-align: center;
+}
+@media only screen and (max-width: 700px) {
+  .book {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    padding: 2%;
+  }
 
   /* border-right: solid darkgoldenrod; */
 }
@@ -194,12 +172,12 @@ export default {
   text-align: center;
 }
 .book-info {
-  display: flex;
+  display: block;
   align-items: center;
 
-  &:hover {
-    transform: translateY(5px);
-  }
+  // &:hover {
+  //   transform: translateY(5px);
+  // }
 }
 img {
   width: 80px;

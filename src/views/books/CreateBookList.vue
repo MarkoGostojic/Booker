@@ -81,7 +81,6 @@
         <div v-for="book in books" :key="book.id">
           <h4>{{ book.bookTitle }}</h4>
           <h3>{{ book.bookAuthor }}</h3>
-          <!-- <p>{{ book.aboutBook }}</p> -->
           <img :src="book.coverUrl" />
         </div>
       </div>

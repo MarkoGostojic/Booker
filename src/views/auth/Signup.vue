@@ -30,10 +30,13 @@
 import { ref } from "vue";
 import useSignup from "@/composables/useSignup";
 import { useRouter } from "vue-router";
+import { projectAuth } from "@/firebase/config";
+import getUser from "@/composables/getUser";
 
 export default {
   setup() {
     const { error, loading, signup } = useSignup();
+    // const { user } = getUser();
     const router = useRouter();
     const displayName = ref("");
     const email = ref("");
@@ -41,6 +44,7 @@ export default {
 
     const handleSignup = async () => {
       const res = await signup(email.value, password.value, displayName.value);
+      console.log(displayName.value);
       if (!error.value) {
         router.push({ name: "Home" });
       }

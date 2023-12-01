@@ -9,6 +9,9 @@
     <div v-if="user" class="links">
       <p>hello</p>
       <h4><span>, </span>{{ user.displayName }}</h4>
+      <!-- <router-link class="btn" :to="{ name: 'MyReadingWishList' }"
+        >My reading Wish List</router-link
+      > -->
       <router-link class="btn" :to="{ name: 'CreateBookList' }"
         >Create Book List</router-link
       >
@@ -17,9 +20,7 @@
     <div v-if="!user">
       <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
       <span> or </span>
-      <router-link class="btn" :to="{ name: 'Signup' }"
-        ><Signup />Signup</router-link
-      >
+      <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
     </div>
   </nav>
 </template>
@@ -31,9 +32,9 @@ import { useRouter } from "vue-router";
 
 export default {
   setup() {
-    const { user } = getUser();
+    const { user, error, loading } = getUser();
     const router = useRouter();
-    const { error, logout, loading } = useLogout();
+    const { logout } = useLogout();
     const handleLogout = async () => {
       await logout();
       router.push({ name: "Login" });

@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/auth/Login.vue";
 import Signup from "../views/auth/Signup.vue";
 import CreateBookList from "../views/books/CreateBookList";
+import MyReadingWishList from "../views/books/MyReadingWishList";
 import BookListDetails from "../views/books/BookListDetails";
 
 const requireAuth = (to, from, next) => {
@@ -36,6 +37,13 @@ const routes = [
     path: "/books/create",
     name: "CreateBookList",
     component: CreateBookList,
+    beforeEnter: requireAuth,
+    props: true,
+  },
+  {
+    path: "/books/wishlist",
+    name: "MyReadingWishList",
+    component: MyReadingWishList,
     beforeEnter: requireAuth,
     props: true,
   },
